@@ -135,8 +135,7 @@ var app = new Vue({
                             indicePeso += this.numNeurEscondidas
                         }
                     }
-                    console.log(this.net2)
-                    
+                    //console.log(this.net2)
                         /**
                             * recordando que los valores netos son calculados
                             * a partir de la sumatoria de los pesos(w) por su respectiva entrada(X)
@@ -167,7 +166,27 @@ var app = new Vue({
                             *  net2[2] += w[6]} * x[3]
                             * 
                          */
-                    
+
+                    //(3.ii): CALCULAR LAS SALIDAS(Y2) DE LAS NEURONAS OCULTAS(N.O.)
+                        //La cantidad de salidas es la misma cantidad de N.O.
+                        // y=1/1+e-x
+                        //
+                    for(let i=0; i<this.numNeurEscondidas; i++) {
+                        this.Y2[i] = 1 / (1 + Math.exp(-(this.net2[i])))
+                    }
+
+                    //(3.iii): CALCULAR LAS ENTRADAS NETAS Y SALIDAS DE LAS NEURONAS 
+                    //            DE LA CAPA DE SALIDA
+                    for(let i=0; i<this.numNeurSalida; i++) {
+                        
+                        var indicePesoOculto = i+ (this.numNeurEntrada*this.numNeurEscondidas)
+                        this.net3[i]=0
+
+                        for(let j=0; j<this.numNeurEscondidas; j++) {
+                            this.net3[i] += this.w[indicePesoOculto] * this.Y2[j]
+                            indicePesoOculto += this.numNeurSalida
+                        }
+                    }
                     
                 }
 
