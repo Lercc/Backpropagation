@@ -187,6 +187,36 @@ var app = new Vue({
                             indicePesoOculto += this.numNeurSalida
                         }
                     }
+                    for(let i=0; i<this.numNeurSalida; i++) {
+                        this.Y3[i] = 1 / (1 + Math.exp(-(this.net3[i])))
+                    }
+
+                    /**
+                     * 
+                     * Paso 4 : CALCULAR LOS TÉRMINOS DE ERROR PARA  TODAS LAS NEURONAS
+                     * 
+                     */
+                    
+                    //(4.i): términos de error para las neuronas de salida 
+                    for(let i=0; i<this.numNeurSalida; i++) {
+                        this.delta3[i] = (D[i] - this.Y3[i]) * this.Y3[i] * (1 - this.Y3[i])
+                    }
+
+                    //(4.ii): términos de error para las neuronas ocultas
+                    //delta2[n]: Y2n* (1-Y2n)*(d31*w1 + d32*w2 +.... + d3n*wn)
+                    
+                    var indicePesoOcultoDos = 0 + (this.numNeurEntrada*this.numNeurEscondidas)
+                    for(let i=0; i<this.numNeurEscondidas; i++) {
+                        
+                        var sumatoriaDeltaXpeso = 0
+
+                        for(let j=0; j<this.numNeurSalida; j++) {
+                            sumatoriaDeltaXpeso += this.delta3[j] * this.w[indicePesoOcultoDos]
+                            indicePesoOcultoDos++
+                        }
+
+                        this.delta2[i] = this.Y2[i] * (1 - this.Y2[i]) * (sumatoriaDeltaXpeso)
+                    }
                     
                 }
 
