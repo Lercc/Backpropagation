@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+    
+</head>
+<body>
+    
+    <div id="app">
+        {{ message }}
+
+        <div class="parametrosNeuronas">
+            <label for="neuronasEntrada">Nº neuronas de entrada</label>
+            <input type="number" name="neuronasEntrada" min="1" v-model.number="numNeurEntrada">
+
+            <label for="neuronasOcultas">Nº neuronas ocultas</label>
+            <input type="number" name="neuronasOcultas" min="1" v-model.number="numNeurEscondidas">
+
+            <label for="neuronasSalida">Nº neuronas de salida</label>
+            <input type="number" name="neuronasSalida" min="1" v-model.number="numNeurSalida">
+            
+            <label for="numPatronesEntrenamiento">Nº patrones de entrenamiento</label>
+            <input type="number" name="numPatronesEntrenamiento"  min="1" v-model.number="numPatronesEntrenamiento">
+
+                
+
+            {{calcularPesos}}
+
+            <br>
+                <ul v-for="peso in w">
+                    <li>{{peso}}</li>
+                </ul>
+            <br>
+
+            
+            <button v-on:click="inicializarPatrones()" v-bind:disabled="isAccedOne" >Continuar</button>
+            
+            <!-- <tabla-patrones v-if="mostrarTablaPatrones" 
+            :num-neur-entrada="numNeurEntrada" 
+            :num-neur-salida="numNeurSalida"
+            :num-patrones-entrenamiento="numPatronesEntrenamiento"
+            :x="x"
+            :d="d"></tabla-patrones> -->
+
+            <div id="patronesEntrenamiento" v-if="mostrarTablaPatrones" >
+                <table border="1px">
+                    <tr>
+                        <th :colspan="numNeurEntrada">Entradas</th>   
+                        <th :colspan="numNeurSalida">Salidas</th>
+                    </tr>
+                    <tr v-for="(patron, index) in numPatronesEntrenamiento">
+                        <td v-for="(entrada,indiceEntrada) in x[index].length"><input v-model.number="x[index][indiceEntrada]" type="number" min="0"></td> 
+                        <td v-for="(salida,indiceSalida) in d[index].length"><input v-model.number="d[index][indiceSalida]" type="number" min="0"></td> 
+                    </tr> 
+                </table>
+
+                
+                <input type="number" min="1" v-model.number="numIteraciones">
+    
+                <button v-on:click="entrenarNeurona()" v-bind:disabled="isReadyToLearn" >Entrenar</button>
+            </div>
+
+        </div>
+
+    </div>
+    
+    <script src="./componenteTabla.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
