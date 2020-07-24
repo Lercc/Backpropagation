@@ -219,3 +219,17 @@ input.patronesEntrenamiento.entrada{
     /* outline: 1px orange solid; */
     
 }
+.aboutme{
+    position: absolute;
+    bottom: 10px;
+    opacity: 0.8;
+    text-align: center;
+    width: 100%;
+    color: rgba(148, 111, 24, 0.794);
+}
+.aboutme a {
+    text-decoration: none;
+    color: orangered;
+    font-weight: bolder;
+    opacity: 0.8;
+}
