@@ -5,6 +5,10 @@ var app = new Vue({
         message: 'Hello Vue!',
         mostrarTablaPatrones: false,
         mostrarPrueba: false,
+        entrenado: 0,
+        contador: 0,
+        shadow: false,
+        mostrarBotonProbar:false,
         // btnSiguietePatron: false,
         //
         numNeurEntrada: null,
@@ -64,12 +68,17 @@ var app = new Vue({
             }
         }
     },
+    watch: {
+        mostrarBotonProbar : function() {
+            console.log('asdsa')
+        }
+    },
 
     methods: {
         inicializarPatrones: function() {
             this.x = []
             this.d = []
-
+            
             for(let i=0; i<this.numPatronesEntrenamiento; i++) {
             
                 this.x[i] = new Array()
@@ -97,7 +106,7 @@ var app = new Vue({
             this.mostrarPrueba = true
         },
         entrenarNeurona : function() {
-
+            this.mostrarBotonProbar= false
             // for para entrenamiento de "i" iteraciones
             for(let i=0; i<this.numIteraciones; i++){
                 
@@ -255,9 +264,28 @@ var app = new Vue({
                             indexP++
                         }
                     } 
-                    console.log('termine de imprimir')
+                    this.entrenado++
                 }
             }
+            
+            this.mostrarBotonProbar= true
+
+            const red = this.entrenado >= 300 ? 0.2 : 10
+            const timer = setInterval(()=>{
+                if(this.entrenado > 100) {
+                    clearInterval(timer)
+                    this.contador = this.entrenado
+                    return
+                }
+                if(this.contador == this.entrenado) {
+                    clearInterval(timer)
+                    // console.log('timer afk')
+                    return
+                }
+            // console.log(this.contador)
+            this.contador++ 
+            },red)
+
         },
         probarNeurona: function () {
             /**
@@ -296,10 +324,15 @@ var app = new Vue({
             }
             
             for(let i=0; i<this.numNeurSalida; i++) {
+                if(this.Y3[i]>=0.89) {
+                    this.Y3[i] = 1
+                } else {
+                    this.Y3[i] = 0
+                }
                 this.salida[i] = this.Y3[i]
             }
-            return this.salida
+            this.mostrarBotonProbar= false
+            
         }
     }
-    
 });

@@ -1,0 +1,221 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+td ,input {
+    margin: 0px;
+    padding: 0px;
+}
+body {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width:  100vw;
+
+    background-image: linear-gradient(45deg, #FFE4A7, #FFE4A7);
+    /* background-image: linear-gradient(45deg, #4D1473, #340E59); */
+
+}
+#app {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    width: 93%;
+    border-top: 1px rgba(223, 202, 154, 0.637)solid;
+    border-left: 1px rgba(255, 229, 167, 0.774) solid;
+    /* border-top: 1px rgba(82, 43, 107, 0.205) solid;
+    border-left: 1px rgba(117, 64, 153, 0.432) solid; */
+    border-radius: 20px;
+    padding: 20px;
+
+    /* background-image: linear-gradient(45deg, #4D1473, #340E59);
+    box-shadow: 0px -13px 10px rgba(72, 25, 104, 0.397),
+                -16px -8px 8px rgba(86, 44, 114, 0.315),
+                20px 15px 15px rgba(48, 11, 85, 0.568); */
+    background-image: linear-gradient(45deg, #FFE4A7, #FFE4A7);
+    box-shadow: 0px -13px 10px rgba(231, 211, 164, 0.5),
+                -16px -8px 8px rgba(223, 208, 171, 0.575),
+                20px 15px 15px rgba(219, 197, 143, 0.774);
+
+}
+#main {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 33% 33% 33% ;
+    height: 100%;
+    width: 100%;
+    /* outline: 1px gray solid; */
+    box-sizing: border-box;
+}
+/* 
+ */
+#card1 {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    /* outline: 1px pink solid; */
+}
+#parametros{
+    height: 100%;
+    width: 100%;
+    padding: 20px 15px;
+
+    background-color: #f4958786 ;
+    border-radius: 25px;
+    /* outline: 1px orange solid; */
+}
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+#parametros > label, input, button {
+    display: block;
+    margin: auto;
+    width: 80%;
+
+    text-align: center;
+}
+#parametros > input {
+    height: 35px;
+    border-radius: 10px;
+    border: 1px solid rgba(211, 163, 163, 0.856);
+    background-color: rgba(255, 255, 255, 0.699);
+    margin-bottom: 15px;
+
+    text-align: center;
+}
+#parametros > button {
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid rgba(211, 163, 163, 0.856);
+    background-color: rgba(255, 255, 255, 0.699);
+    margin-bottom: 15px;
+
+    text-align: center;
+}
+/* 
+ */
+#gif {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    /* outline: 1px red solid; */
+}
+#record{
+    height: 100%;
+    width: 100%;
+
+    
+    border-radius: 25px;
+    /* outline: 1px blue solid; */
+}
+/* 
+ */
+#info {
+    grid-row-start: 2;
+    grid-row-end: 4;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    /* outline: 1px greenyellow solid; */
+}
+#pesos {
+    height: 100%;
+    width: 100%;
+    padding: 20px 15px;
+
+    text-align: left;
+    overflow: auto;
+
+    background-color: #42dbdbbd;
+    border-radius: 25px;
+    /* outline: 1px orange solid; */
+}
+#pesos::-webkit-scrollbar-track
+{
+	border-radius: 10px;
+	background-color: #81e7e7bd;
+}
+
+#pesos::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #7be0e0bd;
+}
+
+#pesos::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	background-color: #4eb1b1bd;
+}
+/*  
+*/
+#neural {
+    grid-row-start: 1;
+    grid-row-end: 4;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    height: 100%;
+    width: 100%;
+    padding: 15px;
+    /* outline: 1px blue solid; */
+}
+#patrones {
+    height: 100%;
+    width: 100%;
+    padding: 20px 15px;
+    
+    background-color: #8037c4c7;
+    border-radius: 25px;
+    /* outline: 1px orange solid; */
+}
+#patronesEntrenamiento {
+    height: 60%;
+    width: 100%;
+    overflow-x: auto;
+    /* outline: 1px orange solid; */
+    
+}
+table#tablaPatrones, table#tablaPrueba {
+    border-collapse: collapse;
+    /* outline: 1px red solid; */
+    width: 100%;
+}
+input.patronesEntrenamiento{
+    width: 100%!important;
+    border: 1px solid gray;
+}
+input.patronesEntrenamiento.entrada{
+    background-color: rgba(216, 154, 211, 0.733) ;
+}
+#opcionesPatrones{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 20%;
+}
+#patronesPrueba {
+    height: 20%;
+    width: 100%;
+    overflow-x: auto;
+    /* outline: 1px orange solid; */
+    
+}
