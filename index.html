@@ -30,7 +30,7 @@
                     <label for="numPatronesEntrenamiento">Nº patrones de entrenamiento</label>
                     <input type="number" name="numPatronesEntrenamiento"  min="1" v-model.number="numPatronesEntrenamiento">
                 
-                    <button v-on:click="inicializarPatrones()" v-bind:disabled="isAccedOne" >Continuar</button>
+                    <button v-on:click="inicializarPatrones(),ocultarButonEntrenar()" v-bind:disabled="isAccedOne" v-if="btnContinuar">Continuar</button>
                 </div>
             </div>
 
@@ -60,16 +60,16 @@
                                 <th :colspan="numNeurSalida">Salidas</th>
                             </tr>
                             <tr v-for="(patron, index) in numPatronesEntrenamiento">
-                                <td v-for="(entrada,indiceEntrada) in x[index].length" width="10px"><input v-model.number="x[index][indiceEntrada]" type="number" min="0" class="patronesEntrenamiento entrada"></td> 
-                                <td v-for="(salida,indiceSalida) in d[index].length" width="10px"><input v-model.number="d[index][indiceSalida]" type="number" min="0" class="patronesEntrenamiento"></td> 
+                                <td v-for="(entrada,indiceEntrada) in x[index].length" width="10px"><input v-model.number="x[index][indiceEntrada]" type="number"   class="patronesEntrenamiento entrada"></td> 
+                                <td v-for="(salida,indiceSalida) in d[index].length" width="10px"><input v-model.number="d[index][indiceSalida]" type="number"   class="patronesEntrenamiento"></td> 
                             </tr> 
                         </table>
                     </div>
                     <div id="opcionesPatrones" v-if="mostrarTablaPatrones">
                         <input type="number" min="1" v-model.number="numIteraciones" placeholder="N° Iteraciones">
-                        <button v-on:click="entrenarNeurona()" v-bind:disabled="isReadyToLearn" >Entrenar</button>
+                        <button v-on:click="btnContinuar=false,entrenarNeurona()" v-bind:disabled="isReadyToLearn" v-if="apagarEntrenar">Entrenar</button>
                         <p style="text-align: center;">{{contador}}</p>
-                        <button v-on:click="inicializarPrueba()" v-if="mostrarBotonProbar">inciar prueba</button>
+                        <button v-on:click="inicializarPrueba(),ocultarButonEntrenar()" v-if="mostrarBotonProbar">inciar prueba</button>
                     </div>
                     
                                             
@@ -81,11 +81,11 @@
                                 <th :colspan="numNeurSalida">Salidas</th>
                             </tr>
                             <tr >
-                                <td v-for="(entradas,indexEntrada) in entrada.length" width="10px"><input v-model.number="entrada[indexEntrada]" type="number" min="0" class="patronesEntrenamiento entrada"></td> 
-                                <td v-for="(salidas,indexSalida) in salida.length" width="10px"><input v-model.number="salida[indexSalida]" type="number" min="0" class="patronesEntrenamiento"></td> 
+                                <td v-for="(entradas,indexEntrada) in entrada.length" width="10px"><input v-model.number="entrada[indexEntrada]" type="number"   class="patronesEntrenamiento entrada"></td> 
+                                <td v-for="(salidas,indexSalida) in salida.length" width="10px"><input v-model.number="salida[indexSalida]" type="number"   class="patronesEntrenamiento"></td> 
                             </tr> 
                         </table>
-                        <button v-on:click="probarNeurona()" >Probar</button>
+                        <button v-on:click="probarNeurona(),cambiar()" >Probar</button>
                     </div>
                 </div>
             </div>

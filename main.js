@@ -9,7 +9,8 @@ var app = new Vue({
         contador: 0,
         shadow: false,
         mostrarBotonProbar:false,
-        // btnSiguietePatron: false,
+        apagarEntrenar: false,
+        btnContinuar:true,
         //
         numNeurEntrada: null,
         numNeurEscondidas: null,
@@ -68,11 +69,6 @@ var app = new Vue({
             }
         }
     },
-    watch: {
-        mostrarBotonProbar : function() {
-            console.log('asdsa')
-        }
-    },
 
     methods: {
         inicializarPatrones: function() {
@@ -104,6 +100,24 @@ var app = new Vue({
                 this.salida[k] = null
             }
             this.mostrarPrueba = true
+        },
+        cambiar: function(){
+            if (this.shadow === true ) {
+                this.shadow = false
+                return
+            }else {
+                this.shadow = true
+                return
+            }
+        },
+        ocultarButonEntrenar: function(){
+            if (this.apagarEntrenar === true ) {
+                this.apagarEntrenar = false
+                return
+            }else {
+                this.apagarEntrenar = true
+                return
+            }
         },
         entrenarNeurona : function() {
             this.mostrarBotonProbar= false
@@ -269,7 +283,7 @@ var app = new Vue({
             }
             
             this.mostrarBotonProbar= true
-
+            
             const red = this.entrenado >= 300 ? 0.2 : 10
             const timer = setInterval(()=>{
                 if(this.entrenado > 100) {
@@ -282,10 +296,10 @@ var app = new Vue({
                     // console.log('timer afk')
                     return
                 }
-            // console.log(this.contador)
-            this.contador++ 
+                // console.log(this.contador)
+                this.contador++ 
             },red)
-
+            
         },
         probarNeurona: function () {
             /**
@@ -332,7 +346,7 @@ var app = new Vue({
                 this.salida[i] = this.Y3[i]
             }
             this.mostrarBotonProbar= false
-            
+
         }
     }
 });
