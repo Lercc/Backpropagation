@@ -4,6 +4,7 @@ var app = new Vue({
     data: {
         message: 'Hello Vue!',
         mostrarTablaPatrones: false,
+        mostrarPrueba: false,
         // btnSiguietePatron: false,
         //
         numNeurEntrada: null,
@@ -29,10 +30,10 @@ var app = new Vue({
         delta2: new Array(), // array para los errores de las neuronas ocultas
         delta3: new Array(), // array para los errores de las neuronas de salida
         //
-        alfa: 0.2              //valor de alfa
-
-
-
+        alfa: 0.2,              //valor de alfa
+        //
+        salida: new Array(),
+        entrada: new Array(),
     },
 
     computed: {
@@ -73,15 +74,27 @@ var app = new Vue({
             
                 this.x[i] = new Array()
                 for(let j=0; j<this.numNeurEntrada; j++) {
-                    this.x[i][j] = j
+                    this.x[i][j] = 0
                 }
 
                 this.d[i] = new Array()
                 for(let k=0; k<this.numNeurSalida; k++) {
-                    this.d[i][k] = k
+                    this.d[i][k] = 0
                 }
             }
             this.mostrarTablaPatrones=true
+        },
+        inicializarPrueba: function() {
+            this.entrada = []
+            this.salida = []
+            for(let j=0; j<this.numNeurEntrada; j++) {
+                this.entrada[j] = 0
+            }
+
+            for(let k=0; k<this.numNeurSalida; k++) {
+                this.salida[k] = null
+            }
+            this.mostrarPrueba = true
         },
         entrenarNeurona : function() {
 
@@ -217,10 +230,75 @@ var app = new Vue({
 
                         this.delta2[i] = this.Y2[i] * (1 - this.Y2[i]) * (sumatoriaDeltaXpeso)
                     }
-                    
-                }
 
+                     /**
+                     * 
+                     * Paso 5 : ACTUALIZAR LOS PESOS
+                     * 
+                     */
+                    //(5.i): actualizar los pesos que van de la capa de entrada(i) a la capa oculta (j)
+                    // W[] = w[] + (alfa * delta3[n] * Y2[n]
+                    var indexP = 0;
+                    for(let i=0; i<this.numNeurEntrada; i++) {
+
+                        for(let j=0; j<this.numNeurEscondidas; j++) {
+                            this.w[indexP] += this.alfa * this.delta2[j] * X[i]
+                            indexP++
+                        }
+                    }
+
+                    //(5.ii): actualizar los pesos que van de la capa oculta(j) a la capa de salida (k)
+                    for(let i=0; i<this.numNeurEscondidas; i++) {
+
+                        for(let j=0; j<this.numNeurSalida; j++) {
+                            this.w[indexP] += this.alfa * this.delta3[j] * this.Y2[i]
+                            indexP++
+                        }
+                    } 
+                    console.log('termine de imprimir')
+                }
             }
+        },
+        probarNeurona: function () {
+            /**
+             * Probar entrenamiento: CALCULAR LAS ENTRADAS NETAS Y SALIDAS DE LAS NEURONAS
+             */
+            for(let i=0; i<this.numNeurEscondidas; i++) {
+                        
+                var indicePeso = i
+                this.net2[i]=0
+
+                for(let j=0; j<this.numNeurEntrada; j++) {
+                    this.net2[i] += this.w[indicePeso] * this.entrada[j]
+                    indicePeso += this.numNeurEscondidas
+                }
+            }
+
+            //CALCULAR LAS SALIDAS(Y2) DE LAS NEURONAS OCULTAS(N.O.)
+            for(let i=0; i<this.numNeurEscondidas; i++) {
+                this.Y2[i] = 1 / (1 + Math.exp(-(this.net2[i])))
+            }
+
+            //(3.iii): CALCULAR LAS ENTRADAS NETAS Y SALIDAS DE LAS NEURONAS 
+            //            DE LA CAPA DE SALIDA
+            for(let i=0; i<this.numNeurSalida; i++) {
+                
+                var indicePesoOculto = i+ (this.numNeurEntrada*this.numNeurEscondidas)
+                this.net3[i]=0
+
+                for(let j=0; j<this.numNeurEscondidas; j++) {
+                    this.net3[i] += this.w[indicePesoOculto] * this.Y2[j]
+                    indicePesoOculto += this.numNeurSalida
+                }
+            }
+            for(let i=0; i<this.numNeurSalida; i++) {
+                this.Y3[i] = 1 / (1 + Math.exp(-(this.net3[i])))
+            }
+            
+            for(let i=0; i<this.numNeurSalida; i++) {
+                this.salida[i] = this.Y3[i]
+            }
+            return this.salida
         }
     }
     

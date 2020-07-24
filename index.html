@@ -38,22 +38,15 @@
             
             <button v-on:click="inicializarPatrones()" v-bind:disabled="isAccedOne" >Continuar</button>
             
-            <!-- <tabla-patrones v-if="mostrarTablaPatrones" 
-            :num-neur-entrada="numNeurEntrada" 
-            :num-neur-salida="numNeurSalida"
-            :num-patrones-entrenamiento="numPatronesEntrenamiento"
-            :x="x"
-            :d="d"></tabla-patrones> -->
-
             <div id="patronesEntrenamiento" v-if="mostrarTablaPatrones" >
-                <table border="1px">
+                <table border="1px" width="650px">
                     <tr>
                         <th :colspan="numNeurEntrada">Entradas</th>   
                         <th :colspan="numNeurSalida">Salidas</th>
                     </tr>
                     <tr v-for="(patron, index) in numPatronesEntrenamiento">
-                        <td v-for="(entrada,indiceEntrada) in x[index].length"><input v-model.number="x[index][indiceEntrada]" type="number" min="0"></td> 
-                        <td v-for="(salida,indiceSalida) in d[index].length"><input v-model.number="d[index][indiceSalida]" type="number" min="0"></td> 
+                        <td v-for="(entrada,indiceEntrada) in x[index].length" width="10px"><input v-model.number="x[index][indiceEntrada]" type="number" min="0"></td> 
+                        <td v-for="(salida,indiceSalida) in d[index].length" width="10px"><input v-model.number="d[index][indiceSalida]" type="number" min="0"></td> 
                     </tr> 
                 </table>
 
@@ -61,6 +54,29 @@
                 <input type="number" min="1" v-model.number="numIteraciones">
     
                 <button v-on:click="entrenarNeurona()" v-bind:disabled="isReadyToLearn" >Entrenar</button>
+            </div>
+        <br>
+        <button v-on:click="inicializarPrueba()" >inciar prueba</button>
+        <br>
+        <br>
+            <div v-if="mostrarPrueba">
+                <table border="1px" width="650px">
+                    <tr>
+                        <th :colspan="numNeurEntrada">Entradas</th>   
+                        <th :colspan="numNeurSalida">Salidas</th>
+                    </tr>
+                    <tr >
+                        <td v-for="(entradas,indexEntrada) in entrada.length" width="10px"><input v-model.number="entrada[indexEntrada]" type="number" min="0"></td> 
+                        <td v-for="(salidas,indexSalida) in salida.length" width="10px"><input v-model.number="salida[indexSalida]" type="number" min="0"></td> 
+                    </tr> 
+                    <!-- <tr v-for="(patron, indexa) in 1">
+                        <td v-for="(ee,indiEntrada) in entrada[indexa].length"><input v-model.number="entrada[indexa][indiEntrada]" type="number" min="0"></td> 
+                        <td v-for="(dd,indiSalida) in salida[indexa].length"><input v-model.number="salida[indexa][indiSalida]" type="number" min="0"></td> 
+                    </tr>  -->
+                </table>
+
+
+                <button v-on:click="probarNeurona()" >PRbar</button>
             </div>
 
         </div>
@@ -71,3 +87,5 @@
     <script src="./main.js"></script>
 </body>
 </html>
+
+
